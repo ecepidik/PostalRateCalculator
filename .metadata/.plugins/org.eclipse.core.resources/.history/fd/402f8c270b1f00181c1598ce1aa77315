@@ -12,7 +12,7 @@ public class RateCalculator {
 	
 	public static void main(String[] args) {
 		
-		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,5f, Parcel.Type.REGULAR);
+		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,30f, Parcel.Type.REGULAR);
 		parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
 		rateTableLookup(parcel);
 	}

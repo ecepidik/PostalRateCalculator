@@ -29,13 +29,6 @@ public class Parcel {
 		this.type = type;
 		
 	}
-	public String getTranslatedPostalCode() {
-		return translatedPostalCode;
-	}
-
-	public void setTranslatedPostalCode(String translatedPostalCode) {
-		this.translatedPostalCode = translatedPostalCode;
-	}
 
 	public String getSourcePostalCode() {
 		return sourcePostalCode;

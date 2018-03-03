@@ -12,8 +12,7 @@ public class RateCalculator {
 	
 	public static void main(String[] args) {
 		
-		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,5f, Parcel.Type.REGULAR);
-		parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
+		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,30f, Parcel.Type.REGULAR);
 		rateTableLookup(parcel);
 	}
 
@@ -32,12 +31,11 @@ public class RateCalculator {
 			try {
 				records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
 				for (CSVRecord record : records) {
-					String subPostalCode = record.get("Originated");
-					if (subPostalCode.equals(postalCode.substring(0,3))) {
-						translatedPostalCode = record.get("Translation");
+					String subPostalCode = record.get("Rate Codes for Items Originating from/Codes tarifaires pour les articles en provenance de:");
+					if (subPostalCode.equals(postalCode.substring(0,2))) {
+						translatedPostalCode = record.get(" H0R; H1A-H5B; H7A-H7Y; H8N-H8T; H8Y-H9K; H9P-H9S; H9W-H9X; J4G-J4S; J4V-J4Z ");
 						System.out.println(translatedPostalCode);
 						return translatedPostalCode;
-					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

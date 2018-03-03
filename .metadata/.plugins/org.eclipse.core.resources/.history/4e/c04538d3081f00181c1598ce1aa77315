@@ -7,9 +7,7 @@ public class Parcel {
 	private float width;
 	private float height;
 	private float weight;
-	private Type type;
-	private String translatedPostalCode;
-	
+	public Type type;
 
 	enum Type {
 		REGULAR,
@@ -28,13 +26,6 @@ public class Parcel {
 		this.weight = we;
 		this.type = type;
 		
-	}
-	public String getTranslatedPostalCode() {
-		return translatedPostalCode;
-	}
-
-	public void setTranslatedPostalCode(String translatedPostalCode) {
-		this.translatedPostalCode = translatedPostalCode;
 	}
 
 	public String getSourcePostalCode() {

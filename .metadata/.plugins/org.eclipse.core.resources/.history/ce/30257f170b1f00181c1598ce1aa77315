@@ -12,9 +12,9 @@ public class RateCalculator {
 	
 	public static void main(String[] args) {
 		
-		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,5f, Parcel.Type.REGULAR);
-		parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
-		rateTableLookup(parcel);
+		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,30f, Parcel.Type.REGULAR);
+		codeTranslationTableLookup(parcel.getSourcePostalCode());
+		//rateTableLookup(parcel);
 	}
 
 
@@ -26,6 +26,7 @@ public class RateCalculator {
 	public static String codeTranslationTableLookup(String postalCode) {
 		Reader in;
 		String translatedPostalCode = "";
+		System.out.println(postalCode.substring(0,3));
 		try {
 			in = new BufferedReader(new FileReader("Postal-Tables/Montreal Postal Codes to Rate Codes.csv"));
 			Iterable<CSVRecord> records;
