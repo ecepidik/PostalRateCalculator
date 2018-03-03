@@ -33,8 +33,13 @@ public class RateCalculator {
 			parcel.setType(Parcel.Type.PRIORITY);
 		}
 		
-		parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
-		rateTableLookup(parcel);
+		String errorMessage = parcelDimensionChecking(parcel);
+		if(errorMessage.length() > 0) {
+			System.out.println("ERROR: "+errorMessage);
+		} else {
+			parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
+			rateTableLookup(parcel);
+		}
 	}
 
 
@@ -55,7 +60,6 @@ public class RateCalculator {
 					String subPostalCode = record.get("Originated");
 					if (subPostalCode.equals(postalCode.substring(0,3))) {
 						translatedPostalCode = record.get("Translation");
-						System.out.println(translatedPostalCode);
 						return translatedPostalCode;
 					}
 				}
@@ -96,9 +100,9 @@ public class RateCalculator {
 							return price;
 						}
 					} else {
-						float extra = Float.parseFloat(record.get(parcel.getTranslatedPostalCode()));
-						price = price + extra*parcel.getWeight();
-						System.out.println("Weight " + volume + ": " + price + "$");
+						float extra = Float.parseFloat(record.get(parcel.getTranslatedPostalCode()))*parcel.getWeight();
+						price = price + extra;
+						System.out.println("Weight " + volume + ": " + price + "$" + " includes overweight charges (" + extra + "$)");
 						return price;
 					}
 				}
@@ -109,5 +113,23 @@ public class RateCalculator {
 			e1.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public static String parcelDimensionChecking(Parcel parcel){
+		String error = "";
+		if(parcel.getLength() < 10.0 || parcel.getLength() > 20.0) {
+			System.out.println("HERE");
+			error += "Invalid length. ";
+		}
+		if(parcel.getWidth() < 7 || parcel.getWidth() > 20) {
+			error += "Invalid width. ";
+		}
+		if(parcel.getHeight() < 0.1 || parcel.getHeight() > 20) {
+			error += "Invalid height. ";
+		}
+		if(parcel.getWeight() < 0) {
+			error += "Invalid weight. ";
+		}
+		return error;
 	}
 }

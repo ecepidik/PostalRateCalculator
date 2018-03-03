@@ -1,0 +1,40 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
+public class RateCalculator {
+	
+	public static void main(String[] args) {
+		csvLookUp("A1");
+	}
+
+
+	public float calculateRate(Parcel parcel) {
+
+		return 0f;
+	}
+
+	public static void csvLookUp(String postalCode) {
+		Reader in;
+		try {
+			in = new FileReader("Postal-Tables\\Regular.csv ");
+			Iterable<CSVRecord> records;
+			try {
+				records = CSVFormat.EXCEL.parse(in);
+				for (CSVRecord record : records) {
+					String codeMatch = record.get(postalCode.substring(0,1));
+					System.out.println(codeMatch);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+}
