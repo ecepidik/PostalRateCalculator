@@ -18,15 +18,13 @@ public class Parcel {
 	}
 
 	Parcel (String source, String destination, 
-			float l, float wi, float h, float we,
-			Type type) {
+			float l, float wi, float h, float we) {
 		this.sourcePostalCode = source;
 		this.destPostalCode = destination;
 		this.length = l;
 		this.width = wi;
 		this.height = h;
 		this.weight = we;
-		this.type = type;
 		
 	}
 	public String getTranslatedPostalCode() {

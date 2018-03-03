@@ -12,7 +12,27 @@ public class RateCalculator {
 	
 	public static void main(String[] args) {
 		
-		Parcel parcel = new Parcel("A1X1T3", "A1X1T3", 10f,10f,10f,5f, Parcel.Type.REGULAR);
+		String sourcePostalCode = args[0];
+		String destPostalCode = args[1];
+		float length = Float.parseFloat(args[2]);
+		float width = Float.parseFloat(args[3]);
+		float height = Float.parseFloat(args[4]);
+		float weight = Float.parseFloat(args[5]);
+		String type = args[6];
+		
+		Parcel parcel = new Parcel(sourcePostalCode, destPostalCode, 
+				length,width,height,weight);
+		
+		if(type.equalsIgnoreCase("xpress")) {
+			parcel.setType(Parcel.Type.XPRESS);
+		}
+		if(type.equalsIgnoreCase("regular")) {
+			parcel.setType(Parcel.Type.REGULAR);
+		}
+		if(type.equalsIgnoreCase("priority")) {
+			parcel.setType(Parcel.Type.PRIORITY);
+		}
+		
 		parcel.setTranslatedPostalCode(codeTranslationTableLookup(parcel.getSourcePostalCode()));
 		rateTableLookup(parcel);
 	}
